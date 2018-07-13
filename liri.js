@@ -2,8 +2,8 @@
 //read and set environment variables for the .env package
 require("dotenv").config();
 
-var keys = require('./keys.js');
-var Twitter = require('twitter');
+var keys = require("./keys.js");
+var Twitter = require("twitter");
 
 //Add the code required to import the `keys.js` file and store it in a variable.
 var client = new Twitter({
@@ -13,7 +13,7 @@ var client = new Twitter({
     access_token_secret: keys.twitter.access_token_secret
 });
 
-var params = { screen_name: 'katritest', count: 20 };
+var params = { screen_name: "katritest", count: 20 };
 
 //first command: node liri.js my-tweets
 
@@ -21,7 +21,7 @@ var params = { screen_name: 'katritest', count: 20 };
 if (process.argv[2] === "my-tweets") {
 
     //get statuses on user timeline & pass in the parameters
-    client.get('statuses/user_timeline', params, function (error, tweets, response) {
+    client.get("statuses/user_timeline", params, function (error, tweets, response) {
         if (!error) {
             console.log("Tweets by Katri:");
             for (var i = 0; i < tweets.length; i++) {
@@ -34,8 +34,8 @@ if (process.argv[2] === "my-tweets") {
 
 //second command: node liri.js spotify-this-song
 
-var Spotify = require('node-spotify-api');
-var keys = require('./keys.js');
+var Spotify = require("node-spotify-api");
+var keys = require("./keys.js");
 
 //load spotify id and secret from .env file
 var spotify = new Spotify({
@@ -44,17 +44,17 @@ var spotify = new Spotify({
 });
 
 //if the user inputs "spotify-this-song", then
-if (process.argv[2] === 'spotify-this-song'){
+if (process.argv[2] === "spotify-this-song"){
 
 //if the user doesn't input a song, then
  if(process.argv[3] === undefined){
     
     //search for "The Sign" by Ace of Base
-	spotify.search({ type: 'track', query: 'artist:ace+of+base+track:the+sign', limit: '1' }, function(err, data) {
+	spotify.search({ type: "track", query: "artist:ace+of+base+track:the+sign"}, function(err, data) {
            
         //console.log any errors
             if ( err ) {
-		        console.log('Error occurred: ' + err);
+		        console.log("Error occurred: " + err);
 		        return;
 		    }
 		    // console.log the song, artist name, album name, and url
@@ -70,16 +70,16 @@ if (process.argv[2] === 'spotify-this-song'){
 		var nodeArgs = process.argv;
 
 		// create string for song choice
-		var mySong = "";
+		var songChoice = "";
 
 		// grab all words in song choice excluding first two arguments
 		for (var i=3; i < nodeArgs.length; i++){
-			mySong = mySong + "+" + nodeArgs[i];
+			songChoice = songChoice + "+" + nodeArgs[i];
         }
         //search for the song choice
-		spotify.search({ type: 'track', query: mySong}, function(err, data) {
+		spotify.search({ type: "track", query: songChoice}, function(err, data) {
 		    if ( err ) {
-		        console.log('Error occurred: ' + err);
+		        console.log("Error occurred: " + err);
 		        return;
             }
             //console.log the song, artist name, album name, and url
@@ -94,7 +94,7 @@ if (process.argv[2] === 'spotify-this-song'){
 //third command: node liri.js movie-this
 
 //if the user types in "movie-this", then
-if (process.argv[2] === 'movie-this'){
+if (process.argv[2] === "movie-this"){
 
     //create variable for the argument input
     var movieName = process.argv[3];
@@ -103,12 +103,12 @@ if (process.argv[2] === 'movie-this'){
 	if(process.argv[3] === undefined){
 
         //default to Mr. Nobody
-		movieName = 'Mr. Nobody';
+		movieName = "Mr. Nobody";
     }
     //create variable to store the queryUrl with api key
-	var queryUrl = 'http://www.omdbapi.com/?t=' + movieName +'&y=&tomatoes=true&plot=short&apikey=trilogy';
+	var queryUrl = "http://www.omdbapi.com/?t=" + movieName +"&y=&tomatoes=true&plot=short&apikey=trilogy";
 
-	var request = require('request');
+	var request = require("request");
 
 	//run a request to the OMDB api
 	request(queryUrl, function (error, response, body) {
@@ -131,13 +131,13 @@ if (process.argv[2] === 'movie-this'){
 
 
 //fourth command: node liri.js do-what-it-says
-var fs = require('fs'); 
+var fs = require("fs"); 
 
 //if the user inputs 'do-what-it-says', then
-if (process.argv[2] === 'do-what-it-says'){
+if (process.argv[2] === "do-what-it-says"){
 
     //create array to hold data
-    var dataArr;
+    var dataArray;
 
     //grab text from random.txt
 	 fs.readFile("random.txt", "utf8", function(error, data) {
@@ -145,12 +145,12 @@ if (process.argv[2] === 'do-what-it-says'){
 		if(error){
 			return console.log(error);
 		}
-		dataArr = data.split(',');
+		dataArray = data.split(",");
 		
             //search song on spotify
-	 		spotify.search({ type: 'track', query: dataArr[1]}, function(err, data) {
+	 		spotify.search({ type: "track", query: dataArray[1]}, function(err, data) {
 		    if ( err ) {
-		        console.log('Error occurred: ' + err);
+		        console.log("Error occurred: " + err);
 		        return;
 		    }
 		    //console.log the new song data
