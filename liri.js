@@ -136,7 +136,7 @@ var fs = require("fs");
 //if the user inputs 'do-what-it-says', then
 if (process.argv[2] === "do-what-it-says"){
 
-    //create array to hold data
+    //create variable to hold data
     var dataArray;
 
     //grab text from random.txt
